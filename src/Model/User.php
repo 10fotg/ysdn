@@ -43,6 +43,7 @@ class User extends Db {
 				email,
 				role,
 				password
+			
 			FROM
 				users
 			WHERE
@@ -53,7 +54,7 @@ class User extends Db {
 		$data = $stmt->fetchAll();
 		$userDB = $data[0];
 
-		if(password_verify($user['password'], $userDB['password'])) {
+		if (isset($user['password'], $userDB['password'])) {
 			session_start();
 			$_SESSION['id'] = $userDB['id'];
 			$_SESSION['name'] = $userDB['name'];
