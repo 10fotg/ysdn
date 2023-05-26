@@ -33,7 +33,7 @@ if(isset($_REQUEST['action'])=='edit') {
 						<a href="index.php" class="btn btn-light">ย้อนกลับ</a>
 					</div>
 					<div class="card-body">
-						<form action="save.php" method="post" enctype="multipart/form-data">
+						<form action="save.php" method="post" id="myForm" enctype="multipart/form-data">
 							<input type="hidden" name="action" value="<?php echo (isset($_REQUEST['action'])=='edit') ? "edit" : "add";?>">
 							<input type="hidden" name="id" value="<?php echo $person['id']; ?>">
 							<div class="form-group">
@@ -53,10 +53,10 @@ if(isset($_REQUEST['action'])=='edit') {
 											echo $person['nickname']; 
 										;?>
 										<?php };?>">
-							</div>
+							</div>	
 							<div class="form-group">
-								<label for="dob">วันเกิด</label>
-								<input type="text" name="dob" id="dob" class="form-control" 
+								<label for="date">วันเกิด:</label>
+								<input type="date" name="dob" id="dob" class="form-control"
 								value="<?php  if(isset ($person['dob'])) 
 										{
 											echo $person['dob']; 
@@ -108,11 +108,7 @@ if(isset($_REQUEST['action'])=='edit') {
 								<label for="upload">รูปภาพ</label>
 								<input type="file" name="upload" id="upload" class="form-control">
 								<input type="hidden" name="avatar" id="avatar" class="form-control" 
-								value="<?php  if(isset ($person['avatar'])) 
-										{
-											echo $person['avater']; 
-										;?>
-										<?php };?>">
+								value="<?php echo $person ['avatar'];?>">
 							</div>
 							<button class="btn btn-success" type="submit">บันทึก</button>
 						</form>
@@ -121,6 +117,7 @@ if(isset($_REQUEST['action'])=='edit') {
 			</div>
 		</div>
 	</div>
+	<script src="script.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>	

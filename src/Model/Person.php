@@ -48,9 +48,8 @@ class Person extends Db {
 			WHERE
 				persons.id > 0
 				{$where}
-			ORDER BY
-				persons.gender_id,
-				persons.dob
+			ORDER BY 
+				persons.id DESC
 		";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute($filters);
