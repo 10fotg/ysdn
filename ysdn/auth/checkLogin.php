@@ -1,4 +1,4 @@
-<?php require $_SERVER['DOCUMENT_ROOT']."/learnphp/vendor/autoload.php";?>
+<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/vendor/autoload.php";?>
 <?php
 use App\Model\User;
 
@@ -7,7 +7,7 @@ print_r ($user_obj);
 $result = $user_obj->checkUser($_POST);
 
 if($result){
-	header("location: /learnphp/ysdn/member/index.php");
+	header("location: /ysdn_thailand/ysdn/member/index.php");
 } else {
 	header("location: login.php?msg=error");
 }

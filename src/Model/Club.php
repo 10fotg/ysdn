@@ -5,16 +5,13 @@ use App\Database\Db;
 
 class Club extends Db {
 
-	public function getAllClubs() {
+	public function getClub() {
 		$sql = "
 			SELECT
-				clubs.id,
-				clubs.title
+                *
 			FROM 
-				clubs
-			ORDER BY
-				category_id,
-				title
+               clubs
+		
 		";
 		$stmt = $this->pdo->query($sql);
 		$data = $stmt->fetchAll();

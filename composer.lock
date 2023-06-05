@@ -4,26 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31c0d11a3d3ea3612798180c256f11c",
+    "content-hash": "51a189e92fea2c7c20918aa3b77c7896",
     "packages": [
         {
             "name": "claviska/simpleimage",
-            "version": "3.3.4",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/claviska/SimpleImage.git",
-                "reference": "3786d80af8e6d05e5e42f0350e5e5da5b92041a0"
+                "reference": "a447473883e5dd0daa0d014ae849f0db5b8a1d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/3786d80af8e6d05e5e42f0350e5e5da5b92041a0",
-                "reference": "3786d80af8e6d05e5e42f0350e5e5da5b92041a0",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/a447473883e5dd0daa0d014ae849f0db5b8a1d08",
+                "reference": "a447473883e5dd0daa0d014ae849f0db5b8a1d08",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "league/color-extractor": "0.3.*",
-                "php": ">=5.6.0"
+                "league/color-extractor": "0.4.*",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.5",
+                "phpstan/phpstan": "^1.10"
             },
             "type": "library",
             "autoload": {
@@ -43,37 +47,50 @@
                 }
             ],
             "description": "A PHP class that makes working with images as simple as possible.",
-            "time": "2019-09-26T01:22:02+00:00"
+            "support": {
+                "issues": "https://github.com/claviska/SimpleImage/issues",
+                "source": "https://github.com/claviska/SimpleImage/tree/4.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/claviska",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-05-08T14:27:59+00:00"
         },
         {
             "name": "league/color-extractor",
-            "version": "0.3.2",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/color-extractor.git",
-                "reference": "837086ec60f50c84c611c613963e4ad2e2aec806"
+                "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/color-extractor/zipball/837086ec60f50c84c611c613963e4ad2e2aec806",
-                "reference": "837086ec60f50c84c611c613963e4ad2e2aec806",
+                "url": "https://api.github.com/repos/thephpleague/color-extractor/zipball/21fcac6249c5ef7d00eb83e128743ee6678fe505",
+                "reference": "21fcac6249c5ef7d00eb83e128743ee6678fe505",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "php": ">=5.4.0"
+                "php": "^7.3 || ^8.0"
             },
             "replace": {
                 "matthecat/colorextractor": "*"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "~2",
-                "phpunit/phpunit": "~5"
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "ext-curl": "To download images from remote URLs if allow_url_fopen is disabled for security reasons"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "": "src"
+                    "League\\ColorExtractor\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -97,7 +114,11 @@
                 "image",
                 "palette"
             ],
-            "time": "2016-12-15T09:30:02+00:00"
+            "support": {
+                "issues": "https://github.com/thephpleague/color-extractor/issues",
+                "source": "https://github.com/thephpleague/color-extractor/tree/0.4.0"
+            },
+            "time": "2022-09-24T15:57:16+00:00"
         }
     ],
     "packages-dev": [],
@@ -107,5 +128,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }

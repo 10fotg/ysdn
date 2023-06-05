@@ -1,17 +1,21 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/ysdn/auth/auth.php";
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/vendor/autoload.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/auth/auth.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/vendor/autoload.php";
+include ('script.js');
 use App\Model\Person;
 use App\Model\Ref;
-use App\Model\Club;
+use App\Model\Province;
 
 
-if(isset($_REQUEST['action'])=='edit') {
+if (isset($_REQUEST['action'])=='edit') {
 	$personObj = new Person;
 	$person = $personObj->getPersonById($_REQUEST['id']);
 	
 }
-{ ?>
+
+
+{ 
+?>
 
 
 <!DOCTYPE html>
@@ -20,10 +24,16 @@ if(isset($_REQUEST['action'])=='edit') {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ระบบข้อมูลสมาชิก</title>
-	<link rel="stylesheet" href="/learnphp/theme/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="/ysdn_thailand/theme/css/bootstrap-theme.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+	<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+	<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
 </head>
 <body class="font-mali">
-	<?php require $_SERVER['DOCUMENT_ROOT']."/learnphp/ysdn/inc/components/navbar.php";?>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/navbar.php";?>
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col">
@@ -33,15 +43,24 @@ if(isset($_REQUEST['action'])=='edit') {
 						<a href="index.php" class="btn btn-light">ย้อนกลับ</a>
 					</div>
 					<div class="card-body">
-						<form action="save.php" method="post" id="myForm" enctype="multipart/form-data">
+						<form action="save.php" method="POST" id="myForm" enctype="multipart/form-data">
 							<input type="hidden" name="action" value="<?php echo (isset($_REQUEST['action'])=='edit') ? "edit" : "add";?>">
 							<input type="hidden" name="id" value="<?php echo $person['id']; ?>">
 							<div class="form-group">
 								<label for="firstname">ชื่อจริง</label>
-								<input type="text" name="firstname" id="firstname" class="form-control" 
+								<input type="text" name="firstname" required id="firstname" class="form-control" 
 								value="<?php  if(isset ($person['firstname'])) 
 										{
 											echo $person['firstname']; 
+										;?>
+										<?php };?>">
+							</div>
+							<div class="form-group">
+								<label for="lastname">นามสกุล</label>
+								<input type="text" name="lastname" id="lastname" class="form-control" 
+								value="<?php  if(isset ($person['lastname'])) 
+										{
+											echo $person['lastname']; 
 										;?>
 										<?php };?>">
 							</div>
@@ -54,56 +73,85 @@ if(isset($_REQUEST['action'])=='edit') {
 										;?>
 										<?php };?>">
 							</div>	
-							<div class="form-group">
+							<div class="form-group" id="myForm">
 								<label for="date">วันเกิด:</label>
 								<input type="date" name="dob" id="dob" class="form-control"
-								value="<?php  if(isset ($person['dob'])) 
-										{
-											echo $person['dob']; 
-										;?>
-										<?php };?>">
+								value= "<?php echo $person['dob']; ?>">
+								
 							</div>
 							<div class="form-group">
-								<label for="gender_id">เพศ</label>
+								<label for="gender_id"></label>
 								<select name="gender_id" class="form-control">
-									<option value="">เลือก</option>
+									<option value="">เพศ</option>
 									<?php
 										$refObj = new Ref;
 										$genders = $refObj->getRefsByGroupId(2);
 										foreach($genders as $gender) {
-											$selected = ($gender['id'] == $person['gender_id']) ? "selected" : "";
+											$selected = ($gender['ref_id'] == $person['gender_id']) ? "selected" : "";
 											echo "
-												<option value='{$gender['id']}' {$selected} >{$gender['title']}</option>
+												<option value='{$gender['ref_id']}' {$selected} >{$gender['ref_title']}</option>
 											";
 										}
 									?>
 								</select>
 							</div>
+						
+							<h4>เลือกที่อยู่ของคุณ</h2>
 							<div class="form-group">
-								<label for="club_id">ชมรม</label>
-								<select name="club_id" class="form-control">
-									<option value="">เลือก</option>
-									<?php
-										$clubObj = new Club;
-										$clubs = $clubObj->getAllClubs();
-										foreach($clubs as $club) {
-											$selected = ($club['id'] == $person['club_id']) ? "selected" : "";
-											echo "
-												<option value='{$club['id']}' {$selected} >{$club['title']}</option>
-											";
-										}
-									?>
-								</select>								
-							</div>
-							<div class="form-group">
-								<label for="salary">เงินเดือน</label>
-								<input type="text" name="salary" id="salary" class="form-control" 
-								value="<?php  if(isset ($person['salary'])) 
+							<label for="sub_district">ตำบล/แขวง</label>
+							<input type="text" name="sub_district" id="sub_district" class="form-control"placeholder="ตำบล"
+							value="<?php  if(isset ($person['sub_district'])) 
 										{
-											echo $person['salary']; 
+											echo $person['sub_district']; 
 										;?>
 										<?php };?>">
 							</div>
+							<div class="form-group">
+							<label for="district">อำเภอ/เขต</label>
+							<input type="text" name="district" id="district" class="form-control"placeholder="อำเภอ"
+							value="<?php  if(isset ($person['district'])) 
+										{
+											echo $person['district']; 
+										;?>
+										<?php };?>">
+							</div>
+							<div class="form-group">
+							<label for="province">จังหวัด</label>
+							<input type="text" name="province" id="province" class="form-control"placeholder="จังหวัด"
+							value="<?php  if(isset ($person['province'])) 
+										{
+											echo $person['province']; 
+										;?>
+										<?php };?>">
+							</div>
+							<div class="form-group">
+							<label for="zipcode">รหัสไปรษณีย์</label>
+							<input type="text" name="zipcode" id="zipcode" class="form-control"placeholder="รหัสไปรษณีย์"
+							value="<?php  if(isset ($person['zipcode'])) 
+										{
+											echo $person['zipcode']; 
+										;?>
+										<?php };?>">
+							</div>
+							
+							
+			
+							<div class="form-group">
+								<label for="phone">เบอร์มือถือ</label>
+								<input type="text" name="phone" id="phone" class="form-control" 
+								value="<?php  if(isset ($person['phone'])) 
+										{
+											echo $person['phone']; 
+										;?>
+										<?php };?>">
+							</div>
+							
+							
+						</div>
+						</body>
+						</html>
+						
+
 							<div class="form-group">
 								<label for="upload">รูปภาพ</label>
 								<input type="file" name="upload" id="upload" class="form-control">
@@ -117,10 +165,30 @@ if(isset($_REQUEST['action'])=='edit') {
 			</div>
 		</div>
 	</div>
-	<script src="script.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>	
+
+<script>
+
+		$.Thailand({
+		
+			$district: $('#sub_district'), // input ของตำบล
+			$amphoe: $('#district'), // input ของอำเภอ
+			$province: $('#province'), // input ของจังหวัด
+			$zipcode: $('#zipcode'), // input ของรหัสไปรษณีย์
+		
+		});
+
+</script>
+
+
+
+
+
+
+	
+
 </body>
 </html>
+
+
+
 <?php }; ?>

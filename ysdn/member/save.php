@@ -1,6 +1,6 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/ysdn/auth/auth.php";
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/vendor/autoload.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/auth/auth.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/vendor/autoload.php";
 ?>
 <?php
 // $_GET , $_REQUEST
@@ -13,7 +13,7 @@ $personObj = new Person;
 // 
 if($_FILES['upload']['tmp_name']) {
 	$ext = end(explode(".", $_FILES['upload']['name'])); 
-	$avatar = "/ysdn/13_php/member/avatars/" . md5(uniqid()) . ".{$ext}";
+	$avatar = "/ysdn_thailand/ysdn/member/avatars/" . md5(uniqid()) . ".{$ext}";
 	move_uploaded_file($_FILES['upload']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$avatar);
 }
 

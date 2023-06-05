@@ -8,14 +8,14 @@ class Ref extends Db {
 	public function getRefsByGroupId($groupId) {
 		$sql = "
 			SELECT
-				refs.id,
-				refs.title
+				refs.ref_id,
+				refs.ref_title
 			FROM 
 				refs
 			WHERE
 				refs.ref_group_id = '{$groupId}'
 			ORDER BY
-				id
+				ref_id
 		";
 		$stmt = $this->pdo->query($sql);
 		$data = $stmt->fetchAll();

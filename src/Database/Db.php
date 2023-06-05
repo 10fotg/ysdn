@@ -6,8 +6,8 @@ use PDO;
 class Db {
 	private $host = "localhost";
 	private $user = "root";
-	private $password = "";
-	private $dbName = "member";
+	private $password = "root";
+	private $dbName = "ymember";
 
 	protected $pdo;
 
@@ -23,5 +23,6 @@ class Db {
 		return $pdo;
 	}
 }
-echo "hello world";
+echo "hello world 1";
 ?>
+

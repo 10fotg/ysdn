@@ -25,26 +25,34 @@ class Person extends Db {
 			unset($filters['gender_id']);
 		}
 
-		if (isset($filters['club_id'])) {
-			$where .= " AND persons.club_id = :club_id ";
+		if (isset($filters['geographies.id'])) {
+			$where .= " AND persons.geo = :geo";
 		}else{
-			unset($filters['club_id']);
+			unset($filters['geo']);
 		}
 
 		$sql = "
 			SELECT
 				persons.id,
 				persons.firstname,
+				persons.lastname,
 				persons.nickname,
 				persons.dob,
-				persons.salary,
+				persons.phone,
 				persons.avatar,
-				refs.title AS gender,
-				clubs.title AS club
+				refs.ref_title AS gender,
+				persons.sub_district,
+				persons.district,
+				persons.province,
+				persons.zipcode
+
+
 			FROM 
 				persons
-				LEFT JOIN refs ON persons.gender_id = refs.id
-				LEFT JOIN clubs ON persons.club_id = clubs.id
+				LEFT JOIN refs ON persons.gender_id = refs.ref_id
+				
+
+			
 			WHERE
 				persons.id > 0
 				{$where}
@@ -63,20 +71,34 @@ class Person extends Db {
 		$sql = "
 			INSERT INTO persons (
 				firstname, 
+				lastname, 
 				nickname, 
 				dob, 
 				gender_id, 
-				club_id, 
 				avatar, 
-				salary
+				phone,
+				sub_district,
+				district,
+				province,
+				zipcode
+
+			
+		
+
 			) VALUES (
 				:firstname, 
+				:lastname, 
 				:nickname, 
 				:dob, 
 				:gender_id, 
-				:club_id, 
 				:avatar, 
-				:salary
+				:phone,
+				:sub_district,
+				:district,
+				:province,
+				:zipcode
+		
+			
 			)
 		";
 		$stmt = $this->pdo->prepare($sql);
@@ -88,12 +110,20 @@ class Person extends Db {
 		$sql = "
 			UPDATE persons SET
 				firstname = :firstname, 
+				lastname = :lastname, 
 				nickname = :nickname, 
 				dob = :dob,
 				gender_id = :gender_id, 
-				club_id = :club_id, 
 				avatar = :avatar, 
-				salary = :salary
+				phone = :phone,
+				sub_district =  :sub_district,
+				district = :district,
+				province = :province,
+				zipcode =  :zipcode
+				
+		
+			
+			
 			WHERE id = :id
 		";
 		$stmt = $this->pdo->prepare($sql);
@@ -109,18 +139,23 @@ class Person extends Db {
 		$stmt->execute([$id]);
 		return true;
 	}
-
+//ดึงข้อมูลคนเดียวเพื่อนำมาแก้ไข ให้ค่าเดิมยังคงอยู่ โดยใช้ class Person
 	public function getPersonById($id) {
 		$sql = "
 			SELECT
 				persons.id,
 				persons.firstname,
+				persons.lastname,
 				persons.nickname,
 				persons.dob,
-				persons.salary,
+				persons.phone,
 				persons.gender_id,
 				persons.avatar,
-				persons.club_id
+				persons.sub_district,
+				persons.district,
+				persons.province,
+				persons.zipcode
+			
 			FROM 
 				persons
 			WHERE 

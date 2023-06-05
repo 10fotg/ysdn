@@ -1,9 +1,10 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/ysdn/auth/auth.php";
-require $_SERVER['DOCUMENT_ROOT']."/learnphp/vendor/autoload.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/auth/auth.php";
+require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/vendor/autoload.php";
 use App\Model\Person;
 use App\Model\Ref;
-use App\Model\Club;
+use App\Model\Geo;
+
 
 { ?>
 
@@ -14,7 +15,7 @@ use App\Model\Club;
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ระบบข้อมูลสมาชิก</title>
-	<link rel="stylesheet" href="/learnphp/theme/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="/ysdn_thailand/theme/css/bootstrap-theme.css">
 	<style>
 		.avatar {
 			height: 100px;
@@ -22,7 +23,7 @@ use App\Model\Club;
 	</style>
 </head>
 <body class="font-mali">
-	<?php require $_SERVER['DOCUMENT_ROOT']."/learnphp/ysdn/inc/components/navbar.php";?>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/navbar.php";?>
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col">
@@ -49,9 +50,9 @@ use App\Model\Club;
 										$refObj = new Ref;
 										$genders = $refObj->getRefsByGroupId(2);
 										foreach($genders as $gender) {
-											$selected = ($gender['id'] == $_REQUEST['gender_id']) ? "selected" : "";
+											$selected = ($gender['ref_id'] == $_REQUEST['gender_id']) ? "selected" : "";
 											echo "
-												<option value='{$gender['id']}' {$selected} >{$gender['title']}</option>
+												<option value='{$gender['ref_id']}' {$selected} >{$gender['ref_title']}</option>
 											";
 										}
 									?>
@@ -59,17 +60,17 @@ use App\Model\Club;
 							</div>
 							<div class="input-group mr-2">
 								<div class="input-group-prepend">
-									<div class="input-group-text">ชมรม</div>
+									<div class="input-group-text">ภาค</div>
 								</div>
 								<select name="club_id" class="form-control">
 									<option value="">ทั้งหมด</option>
 									<?php
-										$clubObj = new Club;
-										$clubs = $clubObj->getAllClubs();
-										foreach($clubs as $club) {
-											$selected = ($club['id'] == $_REQUEST['club_id']) ? "selected" : "";
+										$geogObj = new Geo;
+										$geos = $geogObj->getAllGeo();
+										foreach($geos as $geo) {
+											$selected = ($geo['id'] == $_REQUEST['geo']) ? "selected" : "";
 											echo "
-												<option value='{$club['id']}' {$selected} >{$club['title']}</option>
+												<option value='{$geo['id']}' {$selected} >{$geo['name']}</option>
 											";
 										}
 									?>
@@ -83,12 +84,20 @@ use App\Model\Club;
 									<th>#</th>
 									<th>Avatar</th>
 									<th>Firstname</th>
+									<th>Lastname</th>
 									<th>Nickname</th>
 									<th>DOB</th>
 									<th>Gender</th>
-									<th>Club</th>
-									<th>Salary</th>
+									<th>Phone</th>
+									<th>sub_district</th>
+									<th>District</th>
+									<th>Province</th>
+									<th>Zipcode</th>
 									<th>จัดการ</th>
+									
+								
+									
+								
 								</tr>
 							</thead>
 							<tbody>
@@ -96,7 +105,7 @@ use App\Model\Club;
 
 									$personObj = new Person();
 
-									$filters = array_intersect_key($_REQUEST, array_flip(['search', 'gender_id', 'club_id']));
+									$filters = array_intersect_key($_REQUEST, array_flip(['search', 'gender_id', 'geo']));
 									$persons = $personObj->getAllPersons($filters);
 									$n=0;
 									foreach($persons as $person) {
@@ -106,11 +115,16 @@ use App\Model\Club;
 												<td>{$n}</td>
 												<td><img src='{$person['avatar']}' class='avatar'></td>
 												<td>{$person['firstname']}</td>
+												<td>{$person['lastname']}</td>
 												<td>{$person['nickname']}</td>
 												<td>{$person['dob']}</td>
 												<td>{$person['gender']}</td>
-												<td>{$person['club']}</td>
-												<td>{$person['salary']}</td>
+												<td>{$person['phone']}</td>
+												<td>{$person['sub_district']}</td>
+												<td>{$person['district']}</td>
+												<td>{$person['province']}</td>
+												<td>{$person['zipcode']}</td>
+		
 												<td>
 													<a href='form.php?id={$person['id']}&action=edit' class='mr-2 btn btn-info'>แก้ไข</a>
 													<a href='save.php?id={$person['id']}&action=delete' class='btn btn-danger'>ลบ</a>
