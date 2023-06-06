@@ -1,0 +1,28 @@
+$primary: #f58220;
+$danger: #ff4136;
+$indigo:#8a4eec;
+$secondary:#4d4c4b;
+$success:#24ad24;
+$info:#dbe7db;
+$warning:#f5d107;
+$light:#ffffff;
+$dark:#111111;
+
+$theme-colors: (
+  "primary": $primary,
+  "danger": $danger,
+  "indigo":$indigo,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "light":      $light,
+  "dark":       $dark
+);
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+  }

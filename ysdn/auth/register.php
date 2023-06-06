@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Register</title>
-	<link rel="stylesheet" href="/ysdn_thailand/theme/css/bootstrap-theme.css">
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/head.php";?>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/profile_nav.php";?>
 </head>
 <body class="font-mali vh-100 d-flex justify-content-center align-items-center">
 	<div class="card mb-3">

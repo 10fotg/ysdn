@@ -12,25 +12,18 @@ use App\Model\Geo;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ระบบข้อมูลสมาชิก</title>
-	<link rel="stylesheet" href="/ysdn_thailand/theme/css/bootstrap-theme.css">
-	<style>
-		.avatar {
-			height: 100px;
-		}
-	</style>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/head.php";?>
+	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/profile_nav.php";?>
 </head>
 <body class="font-mali">
-	<?php require $_SERVER['DOCUMENT_ROOT']."/ysdn_thailand/ysdn/inc/components/navbar.php";?>
+	
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col">
 				<div class="card mb-3">
 					<div class="card-header bg-primary text-white d-flex justify-content-between">
 						<h4>ระบบข้อมูลสมาชิก CRUD </h4>
-						<a href="form.php" class="btn btn-success">เพิ่มสมาชิกใหม่</a>
+						<a href="form.php" class="btn btn-secondary">เพิ่มสมาชิกใหม่</a>
 					</div>
 					<div class="card-body">
 						<form action="" class="form-inline mb-3" method="GET">
